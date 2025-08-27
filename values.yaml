@@ -1,0 +1,19 @@
+postgresql:
+  existingSecret: postgres-secret
+  auth:
+    username: postgres
+
+keycloak:
+  image:
+    repository: quay.io/keycloak/keycloak
+    tag: 26.3
+
+backend:
+  image:
+    repository: alixcja/home-backend
+    tag: dev-9
+
+frontend:
+  image:
+    repository: alixcja/home-frontend
+    tag: dev-13
