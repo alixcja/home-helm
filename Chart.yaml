@@ -23,12 +23,8 @@ version: 0.1.0
 # It is recommended to use it with quotes.
 appVersion: "1.16.0"
 
-dependencies:
-- name: postgresql
-  version: 16.7.15
-  repository: "https://charts.bitnami.com/bitnami"
-
 # how to deploy
 # `helm dependency update`
 # `helm package .`
 # `helm install exp-home .\exp-home-*.tgz --values values.yaml`
+# `helm upgrade exp-home .\exp-home-*.tgz --values values.yaml`
