@@ -31,7 +31,7 @@ spec:
           - name: POSTGRES_USER
             value: root
           - name: QUARKUS_OIDC_AUTH_SERVER_URL
-            value: "http://keycloak.keycloak.svc.cluster.local:80/realms/master"
+            value: "http://157.180.79.220:30080//realms/master"
           - name: QUARKUS_OIDC_CLIENT_ID
             value: "exp-home"
           - name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID

@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: home
+  labels:
+    app: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: alixcja/home-frontend:dev-17
+        env:
+        - name: VITE_BACKEND_URL_VALUE
+          value: "http://backend"
+        - name: VITE_KEYCLOAK_CLIENT_ID_VALUE
+          value: exp-home
+        - name: VITE_KEYCLOAK_REALM_VALUE
+          value: master
+        - name: VITE_KEYCLOAK_URL_VALUE
+          value: "http://157.180.79.220:30080/"
+        - name: VITE_PORT_VALUE
+          value: "8080"
+        # TODO: Add livness and readiness
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: home
+spec:
+  type: NodePort
+  selector:
+    app: frontend
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8080
+    nodePort: 30099
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: frontend
+  namespace: home
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+spec:
+  rules:
+  - host: home.local
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: frontend
+            port:
+              number: 80
