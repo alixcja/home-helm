@@ -19,41 +19,41 @@ spec:
       - name: backend
         image: alixcja/home-backend:dev-11
         env:
-          - name: BUCKET_NAME
-            value: entity-images
-          - name: JDBC_URL
-            value: jdbc:postgresql://postgres.databases.svc.cluster.local:5432/home
-          - name: POSTGRES_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: postgresql
-                key: password
-          - name: POSTGRES_USER
-            value: root
-          - name: QUARKUS_OIDC_AUTH_SERVER_URL
-            value: "http://157.180.79.220:30080//realms/master"
-          - name: QUARKUS_OIDC_CLIENT_ID
-            value: "exp-home"
-          - name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
-            valueFrom:
-                secretKeyRef:
-                  name: minio-creds
-                  key: user
-          - name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
-            valueFrom:
-              secretKeyRef:
-                name: minio-creds
-                key: password
-          - name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
-            value: static
-          - name: QUARKUS_S3_AWS_REGION
-            value: us-east-1
-          - name: QUARKUS_S3_ENDPOINT_OVERRIDE
-            value: http://minio.minio.svc.cluster.local:31080
-          - name: QUARKUS_S3_PATH_STYLE_ACCESS
-            value: "true"
-          - name: SHOP_BUCKET_NAME
-            value: shop-images
+        - name: BUCKET_NAME
+          value: entity-images
+        - name: JDBC_URL
+          value: jdbc:postgresql://postgres.databases.svc.cluster.local:5432/home
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql
+              key: password
+        - name: POSTGRES_USER
+          value: root
+        - name: QUARKUS_OIDC_AUTH_SERVER_URL
+          value: "http://157.180.79.220:30080/realms/master"
+        - name: QUARKUS_OIDC_CLIENT_ID
+          value: "exp-home"
+        - name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: minio-creds
+              key: user
+        - name: QUARKUS_S3_AWS_CREDENTIALS_STATIC_PROVIDER_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: minio-creds
+              key: password
+        - name: QUARKUS_S3_AWS_CREDENTIALS_TYPE
+          value: static
+        - name: QUARKUS_S3_AWS_REGION
+          value: us-east-1
+        - name: QUARKUS_S3_ENDPOINT_OVERRIDE
+          value: http://minio.minio.svc.cluster.local:31080
+        - name: QUARKUS_S3_PATH_STYLE_ACCESS
+          value: "true"
+        - name: SHOP_BUCKET_NAME
+          value: shop-images
         # TODO: Add livness and readiness
         ports:
         - containerPort: 8080
@@ -68,10 +68,10 @@ spec:
   selector:
     app: backend
   ports:
-    - name: http
-      port: 8090
-      targetPort: 8080
-      nodePort: 30100
+  - name: http
+    port: 8090
+    targetPort: 8080
+    nodePort: 30100
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
